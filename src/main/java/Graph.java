@@ -141,12 +141,6 @@ class Graph
         mstPath[0] = 0;
         isNodeInMSTs[0] = true;
         maxSpans[0] = 0;
-
-
-
-
-
-
     }
 
     // Driver method to

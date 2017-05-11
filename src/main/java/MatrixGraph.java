@@ -2,7 +2,9 @@
 // The program is for adjacency matrix representation of the graph
 
 import java.lang.*;
-
+/*
+This class using array to implement graph
+*/
 class MatrixGraph
 {
     // Number of vertices in the graph
@@ -114,7 +116,32 @@ class MatrixGraph
         }
     }
 
-    static void findShortestPath(int graph[][], int src, int nodeCount)
+    public static class ShortestPathResult{
+        private int[] parents;
+        private int[] distances;
+
+        public ShortestPathResult(int[] parents, int[] distances) {
+            this.parents = parents;
+            this.distances = distances;
+        }
+
+        public int[] getParents() {
+            return parents;
+        }
+
+        public void setParents(int[] parents) {
+            this.parents = parents;
+        }
+
+        public int[] getDistances() {
+            return distances;
+        }
+
+        public void setDistances(int[] distances) {
+            this.distances = distances;
+        }
+    }
+    static ShortestPathResult findShortestPath(final int graph[][], final int src, final int nodeCount)
     {
         int dist[] = new int[nodeCount]; // The output array. dist[i] will hold
         // the shortest distance from src to i
@@ -123,7 +150,7 @@ class MatrixGraph
         // path tree or shortest distance from src to i is finalized
         Boolean sptSet[] = new Boolean[nodeCount];
 
-        //parent
+        //parent of the node on Shortest path
 
         int[] parents = new int[nodeCount];
 
@@ -165,8 +192,8 @@ class MatrixGraph
                 }
         }
 
-        // print the constructed distance array
-        printSolution(src, dist, nodeCount, parents);
+        return new ShortestPathResult(parents, dist);
+
     }
 
     static void printPath(int parent[], int j)
@@ -219,7 +246,13 @@ class MatrixGraph
                 {8, 11, 0, 0, 0, 0, 1, 0, 7},
                 {0, 0, 2, 0, 0, 0, 6, 7, 0}
         };
-        findShortestPath(graph, 0, graph.length);
+
+        //starting point
+        int src = 0;
+        ShortestPathResult result = findShortestPath(graph, 0, graph.length);
+
+        // print the constructed distance array
+        printSolution(src, result.getDistances(), graph.length, result.getParents());
 
     }
 }

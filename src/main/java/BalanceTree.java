@@ -51,15 +51,25 @@ public class BalanceTree {
 
         queue.add(cursor);
         Node next;
-        int level = 0;
+        levelQueue.add(1);
+        int currentLevel = 1;
         while ((next = queue.poll()) != null){
-            System.out.println(next.data);
+            int levelFromQueue = levelQueue.poll();
+            if (currentLevel ==levelFromQueue) {
+                System.out.print(next.data + " ");
+            }else{
+                System.out.println("");
+                currentLevel = levelFromQueue;
+                System.out.print(next.data + " ");
+            }
             if (null != next.left) {
                 queue.add(next.left);
+                levelQueue.add(currentLevel + 1);
             }
 
             if (null != next.right) {
                 queue.add(next.right);
+                levelQueue.add(currentLevel + 1);
             }
         }
     }
