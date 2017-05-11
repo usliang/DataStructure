@@ -2,7 +2,7 @@ import java.util.Stack;
 
 /**
  * Created by liliang on 5/2/17.
- * CopyRight Apple Inc.
+ *
  */
 public class Tower {
     Stack<Integer> stack;

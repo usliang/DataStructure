@@ -1,16 +1,19 @@
 /**
  * Created by liliang on 5/10/17.
- * CopyRight Apple Inc.
+ *
  */
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
-public class BalanceTree {
+public class BinaryTree {
 
     static class Node{
         int data;
         Node left;
         Node right;
+        Node parent;
 
 
     }
@@ -167,6 +170,30 @@ public class BalanceTree {
         if (isBalance(cursor)){
             System.out.println("balance");
         }
+    }
+
+    public static Node findCommonAncestor(final Node a, final Node b){
+        Set<Node> parentsA = new HashSet<Node>();
+
+        Node cursor = a.parent;
+
+        while (null != cursor){
+                parentsA.add(cursor);
+                cursor = cursor.parent;
+        }
+
+        cursor = b.parent;
+        Node commonAncestor = null;
+
+        while (null != cursor){
+                if (parentsA.contains(cursor)) {
+                    commonAncestor = cursor;
+                    break;
+                }
+                cursor = cursor.parent;
+        }
+
+        return commonAncestor;
 
     }
 }
