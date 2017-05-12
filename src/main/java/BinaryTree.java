@@ -62,6 +62,7 @@ public class BinaryTree {
         Node next;
         levelQueue.add(1);
         int currentLevel = 1;
+
         while ((next = queue.poll()) != null){
             int levelFromQueue = levelQueue.poll();
             if (currentLevel ==levelFromQueue) {
@@ -240,4 +241,39 @@ public class BinaryTree {
         }
         return cursor;
     }
+
+    public static boolean isSubTree(final Node mainNode, final Node subNode){
+        if (null == mainNode){
+            return false;
+        }
+        if (null == subNode){
+            return true;
+        }
+        if (mainNode.data == subNode.data){
+            return isTreeMatched(mainNode, subNode);
+        }
+        return isSubTree(mainNode.left, subNode) || isSubTree(mainNode.right, subNode);
+    }
+
+    /**
+     *
+     * @param a A branch
+     * @param b B branch
+     * @return true if branch a matches branch b
+     */
+    public static boolean isTreeMatched(Node a, Node b){
+        if (null == a && null == b){
+            return true;
+        }
+        if (null == a || null == b){
+            return false;
+        }
+        if (a.data == b.data){
+            return isTreeMatched(a.left, b.left) && isTreeMatched(a.right, b.right);
+        }else {
+            return false;
+        }
+    }
+
+
 }

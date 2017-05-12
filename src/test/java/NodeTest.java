@@ -144,6 +144,57 @@ public class NodeTest {
         leaf3.parent = right;
 
         BinaryTree.Node leaf4 = new BinaryTree.Node();
+        leaf4.data = 8;
+        leaf4.left = null;
+        leaf4.right = null;
+        leaf4.parent = right;
+
+        right.left = leaf3;
+        right.right = leaf4;
+        right.parent = root;
+
+        return root;
+    }
+
+    public BinaryTree.Node buildSameTree() {
+
+
+        BinaryTree.Node root = new BinaryTree.Node();
+        root.data = 1;
+
+        BinaryTree.Node left = new BinaryTree.Node();
+        left.data = 2;
+
+        BinaryTree.Node right = new BinaryTree.Node();
+        right.data = 3;
+
+        root.left = left;
+        root.right = right;
+        root.parent = null;
+
+        BinaryTree.Node leaf1 = new BinaryTree.Node();
+        leaf1.data = 4;
+        leaf1.left = null;
+        leaf1.right = null;
+        leaf1.parent = left;
+
+        BinaryTree.Node leaf2 = new BinaryTree.Node();
+        leaf2.data = 5;
+        leaf2.left = null;
+        leaf2.right = null;
+        leaf2.parent = left;
+
+        left.left = leaf1;
+        left.right = leaf2;
+        left.parent =root;
+
+        BinaryTree.Node leaf3 = new BinaryTree.Node();
+        leaf3.data = 6;
+        leaf3.left = null;
+        leaf3.right = null;
+        leaf3.parent = right;
+
+        BinaryTree.Node leaf4 = new BinaryTree.Node();
         leaf4.data = 7;
         leaf4.left = null;
         leaf4.right = null;
@@ -151,10 +202,11 @@ public class NodeTest {
 
         right.left = leaf3;
         right.right = leaf4;
-        right.parent = right;
+        right.parent = root;
 
         return root;
     }
+
 
     @Test
     public void testFindAncestor(){
@@ -284,6 +336,140 @@ public class NodeTest {
 
         Assert.assertFalse(BinaryTree.isChild(left, leaf3));
 
+    }
+
+    @Test
+    public void testIsTreeMatched(){
+
+        BinaryTree.Node root = new BinaryTree.Node();
+        root.data = 1;
+
+        BinaryTree.Node left = new BinaryTree.Node();
+        left.data = 2;
+
+        BinaryTree.Node right = new BinaryTree.Node();
+        right.data = 3;
+
+        root.left = left;
+        root.right = right;
+        root.parent = null;
+
+        BinaryTree.Node leaf1 = new BinaryTree.Node();
+        leaf1.data = 4;
+        leaf1.left = null;
+        leaf1.right = null;
+        leaf1.parent = left;
+
+        BinaryTree.Node leaf2 = new BinaryTree.Node();
+        leaf2.data = 5;
+        leaf2.left = null;
+        leaf2.right = null;
+        leaf2.parent = left;
+
+        left.left = leaf1;
+        left.right = leaf2;
+        left.parent =root;
+
+        BinaryTree.Node leaf3 = new BinaryTree.Node();
+        leaf3.data = 6;
+        leaf3.left = null;
+        leaf3.right = null;
+        leaf3.parent = right;
+
+        BinaryTree.Node leaf4 = new BinaryTree.Node();
+        leaf4.data = 7;
+        leaf4.left = null;
+        leaf4.right = null;
+        leaf4.parent = right;
+
+        right.left = leaf3;
+        right.right = leaf4;
+        right.parent = root;
+
+        Assert.assertTrue(BinaryTree.isTreeMatched(root, root));
+        Assert.assertFalse(BinaryTree.isTreeMatched(root, left));
+
+        Assert.assertFalse(BinaryTree.isTreeMatched(right, left));
+
+        BinaryTree.Node root2 = buildTreeWithParentLink();
+
+        //the last leaf node of root2 is different from root
+
+        Assert.assertFalse(BinaryTree.isTreeMatched(root, root2));
+
+        BinaryTree.Node root3 = buildSameTree();
+
+        //root3 has the same nodes as root
+
+        Assert.assertTrue(BinaryTree.isTreeMatched(root, root3));
+
+    }
+
+    @Test
+    public void testIsSubTree(){
+
+        BinaryTree.Node root = new BinaryTree.Node();
+        root.data = 1;
+
+        BinaryTree.Node left = new BinaryTree.Node();
+        left.data = 2;
+
+        BinaryTree.Node right = new BinaryTree.Node();
+        right.data = 3;
+
+        root.left = left;
+        root.right = right;
+        root.parent = null;
+
+        BinaryTree.Node leaf1 = new BinaryTree.Node();
+        leaf1.data = 4;
+        leaf1.left = null;
+        leaf1.right = null;
+        leaf1.parent = left;
+
+        BinaryTree.Node leaf2 = new BinaryTree.Node();
+        leaf2.data = 5;
+        leaf2.left = null;
+        leaf2.right = null;
+        leaf2.parent = left;
+
+        left.left = leaf1;
+        left.right = leaf2;
+        left.parent =root;
+
+        BinaryTree.Node leaf3 = new BinaryTree.Node();
+        leaf3.data = 6;
+        leaf3.left = null;
+        leaf3.right = null;
+        leaf3.parent = right;
+
+        BinaryTree.Node leaf4 = new BinaryTree.Node();
+        leaf4.data = 7;
+        leaf4.left = null;
+        leaf4.right = null;
+        leaf4.parent = right;
+
+        right.left = leaf3;
+        right.right = leaf4;
+        right.parent = root;
+
+        BinaryTree.Node root3 = buildSameTree();
+
+        //root3 has the same nodes as root
+
+        Assert.assertTrue(BinaryTree.isSubTree(root, root3));
+
+        Assert.assertTrue(BinaryTree.isSubTree(root, leaf1));
+
+        Assert.assertTrue(BinaryTree.isSubTree(root, leaf3));
+
+        Assert.assertTrue(BinaryTree.isSubTree(root, left));
+
+        Assert.assertTrue(BinaryTree.isSubTree(root, right));
+
+        Assert.assertFalse(BinaryTree.isSubTree(left, right));
+
+        Assert.assertTrue(BinaryTree.isSubTree(leaf1, leaf1));
     }
 
 }
