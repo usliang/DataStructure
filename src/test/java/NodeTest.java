@@ -206,10 +206,20 @@ public class NodeTest {
         BinaryTree.Node commonAncestor = BinaryTree.findCommonAncestor(leaf1, leaf2);
         Assert.assertTrue(left==commonAncestor);
 
+       commonAncestor = BinaryTree.findCommonAncestor(root, leaf1, leaf2);
+        Assert.assertTrue(left==commonAncestor);
+
+
         commonAncestor = BinaryTree.findCommonAncestor(root, leaf2);
-        Assert.assertTrue(null==commonAncestor);
+        Assert.assertTrue(root==commonAncestor);
+
+        commonAncestor = BinaryTree.findCommonAncestor(root, root, leaf2);
+        Assert.assertTrue(root==commonAncestor);
 
         commonAncestor = BinaryTree.findCommonAncestor(leaf3, leaf2);
+        Assert.assertTrue(root==commonAncestor);
+
+        commonAncestor = BinaryTree.findCommonAncestor(root, leaf3, leaf2);
         Assert.assertTrue(root==commonAncestor);
 
     }

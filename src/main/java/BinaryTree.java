@@ -84,7 +84,6 @@ public class BinaryTree {
     }
 
     public static boolean isBalance(Node node){
-        boolean ret = true;
 
         if (null != node) {
             if ((node.left != null && node.right == null) || (node.left == null && node.right != null))
@@ -187,14 +186,14 @@ public class BinaryTree {
     public static Node findCommonAncestor(final Node a, final Node b){
         Set<Node> parentsA = new HashSet<Node>();
 
-        Node cursor = a.parent;
+        Node cursor = a;
 
         while (null != cursor){
                 parentsA.add(cursor);
                 cursor = cursor.parent;
         }
 
-        cursor = b.parent;
+        cursor = b;
         Node commonAncestor = null;
 
         while (null != cursor){
@@ -211,18 +210,15 @@ public class BinaryTree {
 
     /**
      *
-     * @param root
-     * @param nodeToCheck
+     * @param root - root node
+     * @param nodeToCheck  the node to check
      * @return true if the nodeToCheck is Node under the branch starting from node root; otherwise false
      */
     public static boolean isChild(Node root, Node nodeToCheck){
         if (null == root){
             return false;
         }
-        if (root == nodeToCheck){
-            return true;
-        }
-        return isChild(root.left,nodeToCheck) || isChild(root.right, nodeToCheck);
+        return (root == nodeToCheck) || isChild(root.left,nodeToCheck) || isChild(root.right, nodeToCheck);
     }
 
     /**
