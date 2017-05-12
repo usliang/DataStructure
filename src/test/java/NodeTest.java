@@ -214,4 +214,66 @@ public class NodeTest {
 
     }
 
+    @Test
+    public void testIsChild(){
+
+        BinaryTree.Node root = new BinaryTree.Node();
+        root.data = 1;
+
+        BinaryTree.Node left = new BinaryTree.Node();
+        left.data = 2;
+
+        BinaryTree.Node right = new BinaryTree.Node();
+        right.data = 3;
+
+        root.left = left;
+        root.right = right;
+        root.parent = null;
+
+        BinaryTree.Node leaf1 = new BinaryTree.Node();
+        leaf1.data = 4;
+        leaf1.left = null;
+        leaf1.right = null;
+        leaf1.parent = left;
+
+        BinaryTree.Node leaf2 = new BinaryTree.Node();
+        leaf2.data = 5;
+        leaf2.left = null;
+        leaf2.right = null;
+        leaf2.parent = left;
+
+        left.left = leaf1;
+        left.right = leaf2;
+        left.parent =root;
+
+        BinaryTree.Node leaf3 = new BinaryTree.Node();
+        leaf3.data = 6;
+        leaf3.left = null;
+        leaf3.right = null;
+        leaf3.parent = right;
+
+        BinaryTree.Node leaf4 = new BinaryTree.Node();
+        leaf4.data = 7;
+        leaf4.left = null;
+        leaf4.right = null;
+        leaf4.parent = right;
+
+        right.left = leaf3;
+        right.right = leaf4;
+        right.parent = root;
+
+        Assert.assertTrue(BinaryTree.isChild(root, root));
+
+        Assert.assertFalse(BinaryTree.isChild(null, root));
+
+        Assert.assertTrue(BinaryTree.isChild(root, left));
+
+        Assert.assertTrue(BinaryTree.isChild(root, leaf1));
+
+        Assert.assertTrue(BinaryTree.isChild(root, leaf3));
+
+        Assert.assertFalse(BinaryTree.isChild(left, leaf3));
+
+    }
+
 }

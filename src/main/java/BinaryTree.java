@@ -7,8 +7,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
+/**
+ * binary tree class
+ */
 public class BinaryTree {
 
+    /**
+     * node class on a tree
+     */
     static class Node{
         int data;
         Node left;
@@ -19,35 +25,35 @@ public class BinaryTree {
     }
     Node root;
 
-    public static void firstPrint(Node cursor){
+    public static void preOrderPrint(Node cursor){
 
         if (null != cursor){
             System.out.println(cursor.data);
-            firstPrint(cursor.left);
-            firstPrint(cursor.right);
+            preOrderPrint(cursor.left);
+            preOrderPrint(cursor.right);
         }
     }
 
-    public static void middlePrint(Node cursor){
+    public static void inOrderPrint(Node cursor){
 
         if (null != cursor){
-            middlePrint(cursor.left);
+            inOrderPrint(cursor.left);
             System.out.println(cursor.data);
-            middlePrint(cursor.right);
+            inOrderPrint(cursor.right);
         }
     }
 
-    public static void lastPrint(Node cursor){
+    public static void postOrderPrint(Node cursor){
 
         if (null != cursor){
-            lastPrint(cursor.left);
-            lastPrint(cursor.right);
+            postOrderPrint(cursor.left);
+            postOrderPrint(cursor.right);
             System.out.println(cursor.data);
 
         }
     }
 
-    public static void levelPrint(Node cursor){
+    public static void levelOrderPrint(Node cursor){
 
         Queue<Node> queue = new LinkedList<Node>();
         Queue<Integer> levelQueue = new LinkedList<Integer>();
@@ -152,19 +158,19 @@ public class BinaryTree {
 
         System.out.println("first print");
         Node cursor = root;
-        firstPrint(cursor);
+        preOrderPrint(cursor);
 
         System.out.println("middle print");
         cursor = root;
-        middlePrint(cursor);
+        inOrderPrint(cursor);
 
         System.out.println("last print");
         cursor = root;
-        lastPrint(cursor);
+        postOrderPrint(cursor);
 
         System.out.println("level print");
         cursor = root;
-        levelPrint(cursor);
+        levelOrderPrint(cursor);
 
         cursor = root;
         if (isBalance(cursor)){
@@ -172,6 +178,12 @@ public class BinaryTree {
         }
     }
 
+    /**
+     *
+     * @param a node A
+     * @param b node B
+     * @return the common ancestor of a and b
+     */
     public static Node findCommonAncestor(final Node a, final Node b){
         Set<Node> parentsA = new HashSet<Node>();
 
@@ -195,5 +207,41 @@ public class BinaryTree {
 
         return commonAncestor;
 
+    }
+
+    /**
+     *
+     * @param root
+     * @param nodeToCheck
+     * @return true if the nodeToCheck is Node under the branch starting from node root; otherwise false
+     */
+    public static boolean isChild(Node root, Node nodeToCheck){
+        if (null == root){
+            return false;
+        }
+        if (root == nodeToCheck){
+            return true;
+        }
+        return isChild(root.left,nodeToCheck) || isChild(root.right, nodeToCheck);
+    }
+
+    /**
+     * the method find the closest ancestor of Node A and Node B without depending on parent link
+     * @param root root of the branch
+     * @param a Node a
+     * @param b Node b
+     * @return the closed common ancestor of Node A and Node B
+     */
+    public static Node findCommonAncestor(final Node root, final Node a, final Node b){
+        if (null == root || a == null || b == null){
+            return null;
+        }
+        final Node cursor = root;
+        if (isChild(cursor.left, a) && isChild(cursor.left, b)){
+            return findCommonAncestor(cursor.left, a, b);
+        }else if (isChild(cursor.right, a) && isChild(cursor.right, b)){
+            return findCommonAncestor(cursor.right, a, b);
+        }
+        return cursor;
     }
 }
