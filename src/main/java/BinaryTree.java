@@ -84,30 +84,32 @@ public class BinaryTree {
         }
     }
 
-    public static boolean isBalance(Node node){
-
-        if (null != node) {
-            if ((node.left != null && node.right == null) || (node.left == null && node.right != null))
-                return false;
+    public static boolean isHeightBalance(final Node node){
+        boolean ret = false;
+        if (null != node){
+            int leftHeight = maxDepth(node.left);
+            int rightHeight = maxDepth(node.right);
+            if (Math.abs(leftHeight - rightHeight) <= 1){
+                ret = true;
+            }
+        }else{
+            ret = true;
         }
-        if (node.left == null && node.right == null) {
-            return true;
-        }
-        return isBalance(node.left) && isBalance(node.right);
+        return ret;
     }
 
     public static int maxDepth(Node root){
         if (null == root){
             return 0;
         }
-        return Math.max(maxDepth(root.left), maxDepth(root.right));
+        return Math.max(1 + maxDepth(root.left), 1 + maxDepth(root.right));
     }
 
     public static int minDepth(Node root){
         if (null == root){
             return 0;
         }
-        return Math.min(maxDepth(root.left), maxDepth(root.right));
+        return Math.min(minDepth(root.left), minDepth(root.right));
     }
 
     public static void main(String[] args){
@@ -171,11 +173,6 @@ public class BinaryTree {
         System.out.println("level print");
         cursor = root;
         levelOrderPrint(cursor);
-
-        cursor = root;
-        if (isBalance(cursor)){
-            System.out.println("balance");
-        }
     }
 
     /**
@@ -216,10 +213,11 @@ public class BinaryTree {
      * @return true if the nodeToCheck is Node under the branch starting from node root; otherwise false
      */
     public static boolean isChild(Node root, Node nodeToCheck){
-        if (null == root){
-            return false;
+        boolean ret = false;
+        if (null != root) {
+            ret = (root == nodeToCheck) || isChild(root.left, nodeToCheck) || isChild(root.right, nodeToCheck);
         }
-        return (root == nodeToCheck) || isChild(root.left,nodeToCheck) || isChild(root.right, nodeToCheck);
+        return ret;
     }
 
     /**
@@ -261,17 +259,22 @@ public class BinaryTree {
      * @param b B branch
      * @return true if branch a matches branch b
      */
-    public static boolean isTreeMatched(Node a, Node b){
-        if (null == a && null == b){
+    public static boolean isTreeMatched(Node a, Node b) {
+        if (null == a && null == b) {
             return true;
-        }
-        if (null == a || null == b){
+        }else if (null == a || null == b) {
             return false;
         }
-        if (a.data == b.data){
-            return isTreeMatched(a.left, b.left) && isTreeMatched(a.right, b.right);
+        return (a.data == b.data) && (isTreeMatched(a.left, b.left) && isTreeMatched(a.right, b.right));
+    }
+
+    public static boolean canTreeFold(Node left, Node right){
+        if (null == left && null == right){
+            return true;
+        }else if ((null == left ) || (null == right)){
+            return false;
         }else {
-            return false;
+            return canTreeFold(left.left, right.right) && canTreeFold(left.right, right.left);
         }
     }
 
