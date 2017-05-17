@@ -79,11 +79,56 @@ public class BitOperation {
     public static String convertDecimalToBinary(String decimalStr){
         int  dotIndex = decimalStr.indexOf(".");
         String decimalPart = decimalStr.substring(dotIndex);
-        String nonDecimalPart = decimalPart.substring(0, dotIndex);
+        String nonDecimalPart = decimalStr.substring(0, dotIndex);
 
-        BigDecimal afterDotVal = new BigDecimal(decimalPart);
-        BigDecimal nonDecimalVal = new BigDecimal(nonDecimalPart);
+        double afterDotVal = Double.valueOf(decimalPart);
+        BigInteger nonDecimalVal = new BigInteger(nonDecimalPart);
 
-        return "";
+        return convertNonDecimalToBinary(nonDecimalVal) +  convertDecimalPartToBinary(afterDotVal);
+    }
+
+    /**
+     * the method return the max integer using the same number of one bit in the parameter passed in
+     * @param num a integer
+     * @return max possible integer using the same one bit in num
+     */
+    public static int getMaxWithSameOneBit(final int num){
+        final int INT_LEN = 32;
+        int allOne = ~0;
+        int bitCursor = 1;
+        int oneCount = 0;
+
+        for (int i=0; i<INT_LEN; i++){
+            if ((bitCursor & num) != 0){
+                oneCount++;
+            }
+            bitCursor =  bitCursor<<1;
+        }
+        int ret = 0;
+
+        if (0 != oneCount) {
+            ret = allOne << (INT_LEN - oneCount);
+        }
+        return ret;
+    }
+
+    public static int getMinWithSameOneBit(final int num){
+        final int INT_LEN = 32;
+        int allOne = ~0;
+        int bitCursor = 1;
+        int oneCount = 0;
+
+        for (int i=0; i<INT_LEN; i++){
+            if ((bitCursor & num) != 0){
+                oneCount++;
+            }
+            bitCursor =  bitCursor<<1;
+        }
+        int ret = 0;
+
+        if (0 != oneCount) {
+            ret = allOne >>> (INT_LEN - oneCount);
+        }
+        return ret;
     }
 }
