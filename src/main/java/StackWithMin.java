@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class StackWithMin extends Stack<NodeWithMin>{
+public class StackWithMin extends Stack<NodeWithMin> {
     public StackWithMin() {
         super();
     }
@@ -8,27 +8,27 @@ public class StackWithMin extends Stack<NodeWithMin>{
     public void push(int data) {
         int minCurrent = min();
 
-        if (data<minCurrent){
-            minCurrent =data;
+        if (data < minCurrent) {
+            minCurrent = data;
         }
         super.push(new NodeWithMin(data, minCurrent));
     }
 
-    public int min(){
-        if (super.empty()){
+    public int min() {
+        if (super.empty()) {
             return Integer.MIN_VALUE;
-        }else{
+        } else {
             NodeWithMin nodeWithMin = super.peek();
             return nodeWithMin.getMin();
         }
     }
 
-    public static Stack<Integer> sortStack(Stack<Integer> s){
+    public static Stack<Integer> sortStack(Stack<Integer> s) {
         Stack<Integer> r = new Stack<Integer>();
-        while (!s.isEmpty()){
+        while (!s.isEmpty()) {
             Integer tmp = s.pop();
 
-            while (!r.isEmpty() && r.peek() < tmp){
+            while (!r.isEmpty() && r.peek() < tmp) {
                 s.push(r.pop());
             }
             r.push(tmp);
@@ -37,7 +37,7 @@ public class StackWithMin extends Stack<NodeWithMin>{
         return r;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Stack<Integer> s = new Stack<Integer>();
 
         s.push(10);

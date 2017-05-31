@@ -1,12 +1,13 @@
 /****
  * Created by liliang on 5/18/17.
  ****/
+
 import java.util.ArrayList;
 
 public class FindMissing {
 
     public static void main(String[] args) {
-        if(args.length < 1) {
+        if (args.length < 1) {
             System.out.println("You need to enter an array of integers " +
                     "from 0 to n with one of the integers missing.");
             System.exit(1);
@@ -14,7 +15,7 @@ public class FindMissing {
 
         ArrayList<BitInteger> a = new ArrayList<BitInteger>(args.length);
 
-        for(int i = 0; i < args.length; i++) {
+        for (int i = 0; i < args.length; i++) {
             a.add(new BitInteger(Integer.parseInt(args[i])));
         }
 
@@ -34,21 +35,21 @@ public class FindMissing {
     }
 
     public static int findMissing(ArrayList<BitInteger> a, int col) {
-        if(col < 0)
+        if (col < 0)
             return 0;
 
-        ArrayList<BitInteger> oneBits = new ArrayList<BitInteger>(a.size()/2);
-        ArrayList<BitInteger> zeroBits = new ArrayList<BitInteger>(a.size()/2);
+        ArrayList<BitInteger> oneBits = new ArrayList<BitInteger>(a.size() / 2);
+        ArrayList<BitInteger> zeroBits = new ArrayList<BitInteger>(a.size() / 2);
 
-        for(BitInteger num : a) {
-            if(num.fetch(col) == 0) {
+        for (BitInteger num : a) {
+            if (num.fetch(col) == 0) {
                 zeroBits.add(num);
             } else {
                 oneBits.add(num);
             }
         }
 
-        if(zeroBits.size() <= oneBits.size()) {
+        if (zeroBits.size() <= oneBits.size()) {
             int v = findMissing(zeroBits, col - 1);
             return v << 1;
         } else {

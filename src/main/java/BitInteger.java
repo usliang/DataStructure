@@ -1,6 +1,8 @@
-/****
+/**
+ * *
  * Created by liliang on 5/18/17.
- ****/
+ * **
+ */
 public class BitInteger {
     public static int INTEGER_SIZE = 32;
     private boolean[] bits;
@@ -12,8 +14,8 @@ public class BitInteger {
     public BitInteger(int value) {
         bits = new boolean[INTEGER_SIZE];
 
-        for(int j = 0; j < INTEGER_SIZE; j++) {
-            if(((value >> j) & 1) == 1) {
+        for (int j = 0; j < INTEGER_SIZE; j++) {
+            if (((value >> j) & 1) == 1) {
                 bits[INTEGER_SIZE - 1 - j] = true;
             } else {
                 bits[INTEGER_SIZE - 1 - j] = false;
@@ -24,7 +26,7 @@ public class BitInteger {
     /* Returns k-th most-significant bit.
      */
     public int fetch(int k) {
-        if(bits[k])
+        if (bits[k])
             return 1;
 
         return 0;
@@ -33,14 +35,14 @@ public class BitInteger {
     /* Sets k-th most-significant bit.
      */
     public void set(int k, int bitValue) {
-        if(bitValue == 0)
+        if (bitValue == 0)
             bits[k] = false;
         else
             bits[k] = true;
     }
 
     public void swapValues(BitInteger number) {
-        for(int i = 0; i < INTEGER_SIZE; i++) {
+        for (int i = 0; i < INTEGER_SIZE; i++) {
             int temp = number.fetch(i);
             number.set(i, this.fetch(i));
             this.set(i, temp);
@@ -50,10 +52,10 @@ public class BitInteger {
     public int toInt() {
         int n = 0;
 
-        for(int i = 0; i < INTEGER_SIZE; i++) {
+        for (int i = 0; i < INTEGER_SIZE; i++) {
             n = n << 1;
 
-            if(bits[i])
+            if (bits[i])
                 n = n | 1;
         }
 

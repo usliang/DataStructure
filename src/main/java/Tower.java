@@ -2,7 +2,6 @@ import java.util.Stack;
 
 /**
  * Created by liliang on 5/2/17.
- *
  */
 public class Tower {
     Stack<Integer> stack;
@@ -13,25 +12,25 @@ public class Tower {
         this.index = index;
     }
 
-    public void push(Integer disk){
+    public void push(Integer disk) {
         stack.push(disk);
     }
 
-    public void popTop(Tower tower){
+    public void popTop(Tower tower) {
 
         System.out.println("move disk: " + stack.peek() + " from tower: " + index + " to tower: " + tower.index);
         tower.push(stack.pop());
     }
 
-    public void move(int stickCount, Tower target, Tower buffer){
-        if (stickCount>0){
-            move(stickCount-1, buffer, target);
+    public void move(int stickCount, Tower target, Tower buffer) {
+        if (stickCount > 0) {
+            move(stickCount - 1, buffer, target);
             popTop(target);
-            buffer.move(stickCount-1, target, this);
+            buffer.move(stickCount - 1, target, this);
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Stack<Integer> stack = new Stack<Integer>();
         Tower tower1 = new Tower(stack, 1);
 

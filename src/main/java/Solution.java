@@ -4,7 +4,7 @@ import java.util.*;
  * Created by lliang on 4/29/2017.
  */
 public class Solution {
-    class Item implements Comparator<Item>{
+    class Item implements Comparator<Item> {
         int begin;
         int end;
         long val;
@@ -12,7 +12,7 @@ public class Solution {
 
         @Override
         public int compare(Item o1, Item o2) {
-                return o1.end - o2.end;
+            return o1.end - o2.end;
         }
 
 
@@ -43,7 +43,7 @@ public class Solution {
             Item cursor = this;
             StringBuffer stringBuffer = new StringBuffer();
             stringBuffer.append("+++++++++\n");
-            while (null != cursor){
+            while (null != cursor) {
                 stringBuffer.append(cursor.begin + ":" + cursor.end + " " + cursor.val + "\n");
                 cursor = cursor.next;
             }
@@ -53,12 +53,12 @@ public class Solution {
 
     }
 
-    Item root =null;
+    Item root = null;
 
 
     long max;
 
-    public Solution(int size){
+    public Solution(int size) {
         root = new Item();
         root.begin = 0;
         root.end = size - 1;
@@ -76,7 +76,7 @@ public class Solution {
 
         Item cursor = root;
         Item prev = root;
-        while (null != cursor && cursor.end < itemToAdd.begin ) {
+        while (null != cursor && cursor.end < itemToAdd.begin) {
             prev = cursor;
             cursor = cursor.next;
         }
@@ -84,15 +84,15 @@ public class Solution {
         Item item;
         if (null == cursor) {
             item = prev;
-        }else {
+        } else {
             item = cursor;
         }
 
-        while (item != null && itemToAdd.end >= item.begin){
+        while (item != null && itemToAdd.end >= item.begin) {
 
             if ((itemToAdd.begin == item.begin) && (itemToAdd.end == item.end)) {
                 item.val += itemToAdd.val;
-                if (max<item.val){
+                if (max < item.val) {
                     max = item.val;
                 }
 
@@ -106,7 +106,7 @@ public class Solution {
                 item.val += itemToAdd.val;
                 item = item.next;
 
-                if (max<item.val){
+                if (max < item.val) {
                     max = item.val;
                 }
 
@@ -125,7 +125,7 @@ public class Solution {
                 newItem2.end = itemToAdd.end;
                 newItem2.val = item.val + itemToAdd.val;
 
-                if (max<newItem2.val){
+                if (max < newItem2.val) {
                     max = newItem2.val;
                 }
 
@@ -149,7 +149,7 @@ public class Solution {
                 long oldVal = item.val;
                 item.val = item.val + itemToAdd.val;
 
-                if (max<item.val){
+                if (max < item.val) {
                     max = item.val;
                 }
 
@@ -174,7 +174,7 @@ public class Solution {
                 newItem2.end = oldEnd;
                 newItem2.val = item.val + itemToAdd.val;
 
-                if (max<newItem2.val){
+                if (max < newItem2.val) {
                     max = newItem2.val;
                 }
 
@@ -188,19 +188,19 @@ public class Solution {
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Scanner stdin = new Scanner(System.in);
 
         int size = 0;
-        if (stdin.hasNextInt()){
+        if (stdin.hasNextInt()) {
             size = stdin.nextInt();
         }
 
         Solution spArray = new Solution(size);
 
         int m = 0;
-        if (stdin.hasNextInt()){
+        if (stdin.hasNextInt()) {
             m = stdin.nextInt();
         }
 
@@ -210,21 +210,21 @@ public class Solution {
 
 
         Item item;
-        for (int i=0; i<m; i++){
+        for (int i = 0; i < m; i++) {
             System.out.println("i: " + i);
-            if (stdin.hasNextInt()){
+            if (stdin.hasNextInt()) {
                 a = stdin.nextInt();
             }
-            if (stdin.hasNextInt()){
+            if (stdin.hasNextInt()) {
                 b = stdin.nextInt();
             }
-            if (stdin.hasNextInt()){
+            if (stdin.hasNextInt()) {
                 k = stdin.nextInt();
             }
 
-            item =  spArray.new Item();
-            item.begin = a-1;
-            item.end = b-1;
+            item = spArray.new Item();
+            item.begin = a - 1;
+            item.end = b - 1;
             item.val = k;
 
             spArray.addItem(item);

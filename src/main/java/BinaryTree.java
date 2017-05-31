@@ -2,6 +2,7 @@
  * Created by liliang on 5/10/17.
  *
  */
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -15,7 +16,7 @@ public class BinaryTree {
     /**
      * node class on a tree
      */
-    static class Node{
+    static class Node {
         int data;
         Node left;
         Node right;
@@ -23,29 +24,30 @@ public class BinaryTree {
 
 
     }
+
     Node root;
 
-    public static void preOrderPrint(Node cursor){
+    public static void preOrderPrint(Node cursor) {
 
-        if (null != cursor){
+        if (null != cursor) {
             System.out.println(cursor.data);
             preOrderPrint(cursor.left);
             preOrderPrint(cursor.right);
         }
     }
 
-    public static void inOrderPrint(Node cursor){
+    public static void inOrderPrint(Node cursor) {
 
-        if (null != cursor){
+        if (null != cursor) {
             inOrderPrint(cursor.left);
             System.out.println(cursor.data);
             inOrderPrint(cursor.right);
         }
     }
 
-    public static void postOrderPrint(Node cursor){
+    public static void postOrderPrint(Node cursor) {
 
-        if (null != cursor){
+        if (null != cursor) {
             postOrderPrint(cursor.left);
             postOrderPrint(cursor.right);
             System.out.println(cursor.data);
@@ -53,7 +55,7 @@ public class BinaryTree {
         }
     }
 
-    public static void levelOrderPrint(Node cursor){
+    public static void levelOrderPrint(Node cursor) {
 
         Queue<Node> queue = new LinkedList<Node>();
         Queue<Integer> levelQueue = new LinkedList<Integer>();
@@ -63,11 +65,11 @@ public class BinaryTree {
         levelQueue.add(1);
         int currentLevel = 1;
 
-        while ((next = queue.poll()) != null){
+        while ((next = queue.poll()) != null) {
             int levelFromQueue = levelQueue.poll();
-            if (currentLevel ==levelFromQueue) {
+            if (currentLevel == levelFromQueue) {
                 System.out.print(next.data + " ");
-            }else{
+            } else {
                 System.out.println("");
                 currentLevel = levelFromQueue;
                 System.out.print(next.data + " ");
@@ -84,41 +86,41 @@ public class BinaryTree {
         }
     }
 
-    public static boolean isHeightBalance(final Node node){
+    public static boolean isHeightBalance(final Node node) {
         boolean ret = false;
-        if (null != node){
+        if (null != node) {
             int leftHeight = maxDepth(node.left);
             int rightHeight = maxDepth(node.right);
-            if (Math.abs(leftHeight - rightHeight) <= 1){
+            if (Math.abs(leftHeight - rightHeight) <= 1) {
                 ret = true;
             }
-        }else{
+        } else {
             ret = true;
         }
         return ret;
     }
 
-    public static int maxDepth(Node root){
-        if (null == root){
+    public static int maxDepth(Node root) {
+        if (null == root) {
             return 0;
         }
         return Math.max(1 + maxDepth(root.left), 1 + maxDepth(root.right));
     }
 
-    public static int minDepth(Node root){
-        if (null == root){
+    public static int minDepth(Node root) {
+        if (null == root) {
             return 0;
         }
         return Math.min(minDepth(root.left), minDepth(root.right));
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         testTravel();
 
     }
 
-    public static void testTravel(){
+    public static void testTravel() {
 
         Node root = new Node();
         root.data = 1;
@@ -176,30 +178,29 @@ public class BinaryTree {
     }
 
     /**
-     *
      * @param a node A
      * @param b node B
      * @return the common ancestor of a and b
      */
-    public static Node findCommonAncestor(final Node a, final Node b){
+    public static Node findCommonAncestor(final Node a, final Node b) {
         Set<Node> parentsA = new HashSet<Node>();
 
         Node cursor = a;
 
-        while (null != cursor){
-                parentsA.add(cursor);
-                cursor = cursor.parent;
+        while (null != cursor) {
+            parentsA.add(cursor);
+            cursor = cursor.parent;
         }
 
         cursor = b;
         Node commonAncestor = null;
 
-        while (null != cursor){
-                if (parentsA.contains(cursor)) {
-                    commonAncestor = cursor;
-                    break;
-                }
-                cursor = cursor.parent;
+        while (null != cursor) {
+            if (parentsA.contains(cursor)) {
+                commonAncestor = cursor;
+                break;
+            }
+            cursor = cursor.parent;
         }
 
         return commonAncestor;
@@ -207,12 +208,11 @@ public class BinaryTree {
     }
 
     /**
-     *
-     * @param root - root node
-     * @param nodeToCheck  the node to check
+     * @param root        - root node
+     * @param nodeToCheck the node to check
      * @return true if the nodeToCheck is Node under the branch starting from node root; otherwise false
      */
-    public static boolean isChild(Node root, Node nodeToCheck){
+    public static boolean isChild(Node root, Node nodeToCheck) {
         boolean ret = false;
         if (null != root) {
             ret = (root == nodeToCheck) || isChild(root.left, nodeToCheck) || isChild(root.right, nodeToCheck);
@@ -222,39 +222,39 @@ public class BinaryTree {
 
     /**
      * the method find the closest ancestor of Node A and Node B without depending on parent link
+     *
      * @param root root of the branch
-     * @param a Node a
-     * @param b Node b
+     * @param a    Node a
+     * @param b    Node b
      * @return the closed common ancestor of Node A and Node B
      */
-    public static Node findCommonAncestor(final Node root, final Node a, final Node b){
-        if (null == root || a == null || b == null){
+    public static Node findCommonAncestor(final Node root, final Node a, final Node b) {
+        if (null == root || a == null || b == null) {
             return null;
         }
         final Node cursor = root;
-        if (isChild(cursor.left, a) && isChild(cursor.left, b)){
+        if (isChild(cursor.left, a) && isChild(cursor.left, b)) {
             return findCommonAncestor(cursor.left, a, b);
-        }else if (isChild(cursor.right, a) && isChild(cursor.right, b)){
+        } else if (isChild(cursor.right, a) && isChild(cursor.right, b)) {
             return findCommonAncestor(cursor.right, a, b);
         }
         return cursor;
     }
 
-    public static boolean isSubTree(final Node mainNode, final Node subNode){
-        if (null == mainNode){
+    public static boolean isSubTree(final Node mainNode, final Node subNode) {
+        if (null == mainNode) {
             return false;
         }
-        if (null == subNode){
+        if (null == subNode) {
             return true;
         }
-        if (mainNode.data == subNode.data){
+        if (mainNode.data == subNode.data) {
             return isTreeMatched(mainNode, subNode);
         }
         return isSubTree(mainNode.left, subNode) || isSubTree(mainNode.right, subNode);
     }
 
     /**
-     *
      * @param a A branch
      * @param b B branch
      * @return true if branch a matches branch b
@@ -262,18 +262,18 @@ public class BinaryTree {
     public static boolean isTreeMatched(Node a, Node b) {
         if (null == a && null == b) {
             return true;
-        }else if (null == a || null == b) {
+        } else if (null == a || null == b) {
             return false;
         }
         return (a.data == b.data) && (isTreeMatched(a.left, b.left) && isTreeMatched(a.right, b.right));
     }
 
-    public static boolean canTreeFold(Node left, Node right){
-        if (null == left && null == right){
+    public static boolean canTreeFold(Node left, Node right) {
+        if (null == left && null == right) {
             return true;
-        }else if ((null == left ) || (null == right)){
+        } else if ((null == left) || (null == right)) {
             return false;
-        }else {
+        } else {
             return canTreeFold(left.left, right.right) && canTreeFold(left.right, right.left);
         }
     }
