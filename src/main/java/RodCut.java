@@ -38,6 +38,45 @@ public class RodCut {
         return ret;
     }
 
+    public static int memoizeCutWithHow(final int[] prices, final int length, final int[] firstPieces) {
+        int[] revenue = new int[length + 1];
+        for (int i = 0; i <= length; i++){
+            revenue[i] = -1;
+        }
+        return memoizeCutAuxWithHow(prices, length, revenue, firstPieces);
+    }
+
+    public static int memoizeCutAuxWithHow(final int[] prices, final int length, final int[] revenue, final int[] firstPieces){
+        if (0 <= revenue[length]){
+            return revenue[length];
+        }
+
+        int ret = 0;
+        int firstPiece = 0;
+
+        if (0 < length){
+            ret = -1;
+
+
+            for (int i = 0; i < length; i++){
+                int revenueNext = prices[i] + memoizeCutAuxWithHow(prices, length - (i + 1), revenue, firstPieces);
+                if (ret <   revenueNext) {
+                    ret = revenueNext;
+                    firstPiece = i + 1;
+                }
+
+            }
+        }
+
+        revenue[length] = ret;
+        firstPieces[length] = firstPiece;
+
+        String msg = String.format("Max revenue for length %d is %d.", length, ret);
+        System.out.println(msg);
+
+        return ret;
+    }
+
     public static int bottomUpCutRod(int[] prices, int length){
         int[] revenue = new int[length + 1];
         revenue[0] = 0;

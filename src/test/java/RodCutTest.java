@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class RodCutTest {
     static final int PRICES[] = {1,5,8,9,10,17,17,20,24,30};
-    static final int LENGTH = 10;
+    static final int LENGTH = 9;
     @Test
     public void testBottomUpCutRod() throws Exception {
         int maxRevenue = RodCut.bottomUpCutRod(PRICES, LENGTH);
@@ -44,5 +44,17 @@ public class RodCutTest {
             String msg = String.format("The first pieces leading to the max revenue for length: %d is %d.", i, firstPierces[i]);
             System.out.println(msg);
         }
+    }
+
+    @Test
+    public void testMemoizeCutWithHow() throws Exception {
+        int[] revenues = new int[LENGTH + 1];
+        int[] firstPieces = new int[LENGTH + 1];
+        int maxRevenue = RodCut.memoizeCutWithHow(PRICES, LENGTH, firstPieces);
+        String msg = String.format("Max revenue for length %d is %d.", LENGTH, maxRevenue);
+        System.out.println(msg);
+        //Assert.assertTrue(30 == maxRevenue);
+
+        RodCut.printSolution(firstPieces, LENGTH);
     }
 }
