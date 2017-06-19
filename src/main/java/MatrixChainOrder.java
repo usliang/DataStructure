@@ -42,4 +42,38 @@ public class MatrixChainOrder {
             System.out.print(")");
         }
     }
+
+    static class Matrix {
+        public int rows = 0;
+        public int columns = 0;
+        public int[][] data = null;
+
+        public Matrix(int rows, int columns) {
+            this.rows = rows;
+
+            this.columns = columns;
+            data = new int[rows][columns];
+
+            for (int i = 0; i < rows; i++){
+                for (int j = 0; j < columns; j++){
+                    data[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    public static Matrix matrixMultiply(Matrix a, Matrix b){
+        if (a.columns != b.rows){
+            throw new IllegalArgumentException("Matrix A's column must equal to Matrix B's row");
+        }
+        Matrix c = new Matrix(a.rows, b.columns);
+        for (int i = 0; i < a.rows; i ++){
+            for (int j = 0; j < b.columns; j++){
+                for (int k = 0; k  < a.columns; k++){
+                    c.data[i][j] += a.data[i][k] * b.data[k][j];
+                }
+            }
+        }
+        return c;
+    }
 }

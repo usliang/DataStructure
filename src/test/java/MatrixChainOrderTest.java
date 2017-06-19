@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 /****
@@ -30,6 +31,25 @@ public class MatrixChainOrderTest {
                 System.out.println(msg);
             }
         }
+    }
+
+    @Test
+    public void testMatrixMultiple(){
+        MatrixChainOrder.Matrix a = new MatrixChainOrder.Matrix(1,2);
+        MatrixChainOrder.Matrix b = new MatrixChainOrder.Matrix(2,1);
+
+        a.data[0][0] = 2;
+        a.data[0][1] = 3;
+
+        b.data[0][0] = 4;
+        b.data[1][0] = 5;
+
+        MatrixChainOrder.Matrix c = MatrixChainOrder.matrixMultiply(a, b);
+
+        Assert.assertTrue(1 == c.rows);
+        Assert.assertTrue(1 == c.columns);
+
+        Assert.assertTrue(23 == c.data[0][0]);
     }
 
 }
