@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /****
  * Created by liliang on 6/13/17.
  ****/
@@ -21,7 +23,27 @@ public class MatrixChainOrderTest {
         System.out.println("Orders array: ");
         //printArrays(orders);
 
-        MatrixChainOrder.printSolution(orders,3,5);
+        MatrixChainOrder.printSolution(orders,1,5);
+
+        System.out.println("Top down result: ");
+        int[][] cost2 = new int[dim.length][dim.length];
+        int[][] orders2 = new int[dim.length][dim
+                .length];
+
+        MatrixChainOrder.topDownMemorized(dim, cost2, orders2);
+
+        //print result
+        System.out.println("Cost array: ");
+        printArrays(cost);
+
+        System.out.println("Orders array: ");
+        //printArrays(orders);
+
+        MatrixChainOrder.printSolution(orders,1,5);
+
+        Assert.assertTrue(Arrays.deepEquals(cost,cost2));
+
+
     }
 
     public void printArrays(int[][] data){

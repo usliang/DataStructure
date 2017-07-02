@@ -76,4 +76,35 @@ public class MatrixChainOrder {
         }
         return c;
     }
+
+    public static int topDownMemorized(int[] p, int[][] cost, int[][]orders){
+        int n = p.length - 1;
+
+        for (int i = 1; i <= n; i++){
+            for (int j = i; j <= n; j++) {
+                cost[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        return lookupChain(p, cost, 1, n, orders);
+    }
+
+    public static int  lookupChain(final int[] p, final int[][] cost, final int i, final int j,  final int[][]orders) {
+        if (Integer.MAX_VALUE > cost[i][j]){
+            return cost[i][j];
+        }
+        if (i == j){
+            cost[i][j] = 0;
+        }else {
+            for (int k = i; k <= j-1 ; k++){
+                int tempCost = lookupChain(p, cost,i, k, orders)
+                        + lookupChain(p, cost, k+1, j, orders)  + p[i-1 ] * p[k] * p[j];
+                if (tempCost < cost[i][j]){
+                    cost[i][j] = tempCost;
+                    orders[i][j] = k;
+                }
+            }
+        }
+        return cost[i][j];
+    }
 }
