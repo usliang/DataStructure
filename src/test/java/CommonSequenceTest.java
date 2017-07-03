@@ -39,14 +39,13 @@ public class CommonSequenceTest {
         char[] charsA4 = {'a', 'b', 'c'};
         char[] charsB4 = {'e', 'f', 'g'};
         lists = CommonSequence.findLongest(charsA4, charsB4);
-        longestList = lists.get(lists.size()-1);
-        Assert.assertTrue(0 == longestList.size());
+        Assert.assertTrue(0 == lists.size());
 
-        //from book
+        //data from book
         char[] charsA5 = {'a', 'b', 'c', 'b', 'd', 'a', 'b'};
         char[] charsB5 = {'b', 'd', 'c', 'a', 'b', 'a'};
         lists = CommonSequence.findLongest(charsA5, charsB5);
-        longestList = lists.get(lists.size()-3);
+        longestList = lists.get(lists.size()-1);
         Assert.assertTrue(3 == longestList.size());
         longestSequence = longestList.get(longestList.size() - 1);
         Assert.assertTrue( 4 == longestSequence.size());

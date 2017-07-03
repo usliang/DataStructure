@@ -46,8 +46,9 @@ public class CommonSequence {
         if (level > shorterArray.length){
             return;
         }
+        List<List<MatchInfo>> lists = new ArrayList<>();
         if (1 == level){
-            List<List<MatchInfo>> lists = new ArrayList<>();
+
             for (int i = 0; i < shorterArray.length; i++){
                 int posOnOtherArray = getLetterPosition(signature, shorterArray[i], 0);
                 if (-1 < posOnOtherArray){
@@ -57,11 +58,8 @@ public class CommonSequence {
                     lists.add(matchInfoList);
                 }
             }
-            common.add(level-1,lists);
         }else {
             List<List<MatchInfo>> longerSequences = common.get(level-2);
-            List<List<MatchInfo>> lists = new ArrayList<>();
-
             for (List<MatchInfo> matchInfoList : longerSequences){
                 MatchInfo matchInfo = matchInfoList.get(matchInfoList.size()-1);
                 for (int i = matchInfo.position+1; i < shorterArray.length; i++) {
@@ -74,9 +72,11 @@ public class CommonSequence {
                     }
                 }
             }
-            common.add(level-1,lists);
         }
-        addOneMoreLetter(shorterArray, common, level+1,signature);
+        if (0 != lists.size()) {
+            common.add(level-1,lists);
+            addOneMoreLetter(shorterArray, common, level + 1, signature);
+        }
     }
     public static boolean isInSequence(List<Character> common, char toFind){
         boolean ret = false;
