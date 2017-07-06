@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,5 +16,11 @@ public class ActivitySelectorTest {
         List<Integer> maxSet = new ArrayList<>();
         ActivitySelector.recursiveProcess(startTime, finishTime, 0, 11, maxSet);
         System.out.println(Arrays.toString(maxSet.toArray()));
+
+        List<Integer> maxSet2 = new ArrayList<>();
+        ActivitySelector.bottomUpProcess(startTime, finishTime, 11, maxSet2);
+        System.out.println(Arrays.toString(maxSet2.toArray()));
+
+        Assert.assertTrue(Arrays.equals(maxSet.toArray(), maxSet2.toArray()));
     }
 }
